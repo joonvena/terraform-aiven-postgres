@@ -27,7 +27,7 @@ func TestTerraformAivenPostgres(t *testing.T) {
 	databaseName := terraform.Output(t, terraformOptions, "database_name")
 	databaseConnectionUrl := FetchSensitiveOutput(t, terraformOptions, "database_url")
 
-	assert.Equal(t, databaseName, "testing")
+	assert.Equal(t, databaseName, "test")
 
 	fmt.Println("Checking that database connection works...")
 	conn, err := pgx.Connect(context.Background(), databaseConnectionUrl)

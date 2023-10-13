@@ -1,5 +1,5 @@
 module "postgres" {
-  source = "../"
+  source = "../../"
 
   aiven_project = var.aiven_project
   database_name = var.database_name
