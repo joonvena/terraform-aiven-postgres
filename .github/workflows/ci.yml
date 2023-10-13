@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.1
+    - name: fmt
+      run: terraform fmt -recursive -check
+    - name: init
+      run: terraform init
+    - name: validate
+      run: terraform validate
+    - name: test
+      run: make unit
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.1
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '^1.13.1'
+    - name: test
+      run: make e2e
